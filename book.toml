@@ -1,9 +1,10 @@
 [book]
+title = "awesome-rust"
 authors = ["sabertazimi"]
+description = "Rust prototypes."
+src = "docs"
 language = "zh-CN"
 multilingual = false
-src = "docs"
-title = "awesome-rust"
 
 [output.html]
 git-repository-url = "https://github.com/sabertazimi/awesome-rust"
@@ -12,6 +13,7 @@ site-url = "/awesome-rust/"
 
 [output.html.playground]
 editable = true
+copyable = true
 copy-js = true
 line-numbers = true
 
