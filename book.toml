@@ -2,12 +2,13 @@
 authors = ["sabertazimi"]
 language = "zh-CN"
 multilingual = false
-src = "."
+src = "docs"
 title = "awesome-rust"
 
 [output.html]
 git-repository-url = "https://github.com/sabertazimi/awesome-rust"
 edit-url-template = "https://github.com/sabertazimi/awesome-rust/edit/main/{path}"
+site-url = "/awesome-rust/"
 
 [output.html.playground]
 editable = true
