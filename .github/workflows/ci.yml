@@ -69,7 +69,7 @@ jobs:
         run: |
           rustc -V
           cargo -V
-      - name: Build target
+      - name: Build binaries
         run: |
           cargo build --release
 
