@@ -1,5 +1,5 @@
 use chrono::{DateTime, FixedOffset, NaiveDateTime, Utc};
-use git2::{Commit, ObjectType, Oid, Repository, Sort};
+use git2::{Commit, ObjectType, Repository, Sort};
 use std::path::Path;
 
 // https://github.com/rust-lang/mdBook/pull/1506
@@ -19,57 +19,83 @@ fn main() -> std::io::Result<()> {
     ];
 
     for file in files {
-        get_git_timestamp(file);
+        find_git_timestamp(file);
     }
 
     Ok(())
 }
 
-fn get_git_timestamp(file_name: &str) {
-    let file_path = Path::new(file_name);
-    let repo = Repository::open("./.git").expect("Couldn't open repository!");
-    let head_commit = get_head_commit(&repo).expect("Couldn't find head commit!");
-    let mut current_commit = head_commit;
-    let mut head_tree_entry_id = Oid::zero();
-    let mut head_walker = repo.revwalk().expect("Could't setup revwalk!");
-    head_walker
-        .push_head()
-        .expect("Couldn't push first commit!");
-    head_walker
-        .set_sorting(Sort::TIME)
-        .expect("Couldn't walk by time!");
+fn find_git_timestamp(file_name: &str) {
+    let mut timestamp = get_git_timestamp(file_name);
 
-    for commit_oid in head_walker {
-        let oid = commit_oid.expect("Failed to revwalk!");
-        let commit = repo.find_commit(oid).expect("Couldn't find commit!");
-        let tree = commit.tree().expect("Couldn't find tree!");
-        let tree_entry = match tree.get_path(file_path) {
-            Ok(entry) => entry,
-            Err(_) => continue,
-        };
-
-        if !tree_entry.id().is_zero() {
-            head_tree_entry_id = tree_entry.id();
-            current_commit = commit;
-            break;
-        }
+    // Fall back to build time.
+    if timestamp == 0 {
+        timestamp = Utc::now().timestamp();
+        print!("[NOW] ");
+    } else {
+        print!("[GIT] ");
     }
+
+    let china_time = get_china_time(timestamp);
+    println!(
+        "Commit {} at: {}",
+        file_name,
+        china_time.format("%Y-%m-%d %H:%M:%S"),
+    );
+}
+
+fn get_git_timestamp(file_name: &str) -> i64 {
+    let file_path = Path::new(file_name);
+    let repo = match Repository::open("./.git") {
+        Ok(repo) => repo,
+        Err(_) => return 0,
+    };
+    let head_commit = match get_head_commit(&repo) {
+        Ok(commit) => commit,
+        Err(_) => return 0,
+    };
+    let head_tree = match head_commit.tree() {
+        Ok(tree) => tree,
+        Err(_) => return 0,
+    };
+    let head_tree_entry = match head_tree.get_path(file_path) {
+        Ok(entry) => entry,
+        Err(_) => return 0,
+    };
+    let head_tree_entry_id = head_tree_entry.id();
 
     if head_tree_entry_id.is_zero() {
         println!("Couldn't find {} on head commit!", file_name);
-        return;
+        return 0;
     }
 
-    let mut walker = repo.revwalk().expect("Could't setup revwalk!");
-    walker.push_head().expect("Couldn't push first commit!");
-    walker
-        .set_sorting(Sort::TIME)
-        .expect("Couldn't walk by time!");
+    let mut walker = match repo.revwalk() {
+        Ok(walker) => walker,
+        Err(_) => return 0,
+    };
+    match walker.push_head() {
+        Ok(_) => {}
+        Err(_) => return 0,
+    };
+    match walker.set_sorting(Sort::TIME) {
+        Ok(_) => {}
+        Err(_) => return 0,
+    };
+    let mut current_commit = head_commit;
 
     for commit_oid in walker {
-        let oid = commit_oid.expect("Failed to revwalk!");
-        let commit = repo.find_commit(oid).expect("Couldn't find commit!");
-        let tree = commit.tree().expect("Couldn't find tree!");
+        let oid = match commit_oid {
+            Ok(oid) => oid,
+            Err(_) => return 0,
+        };
+        let commit = match repo.find_commit(oid) {
+            Ok(commit) => commit,
+            Err(_) => return 0,
+        };
+        let tree = match commit.tree() {
+            Ok(tree) => tree,
+            Err(_) => return 0,
+        };
         let tree_entry = match tree.get_path(file_path) {
             Ok(entry) => entry,
             Err(_) => continue,
@@ -82,7 +108,7 @@ fn get_git_timestamp(file_name: &str) {
         current_commit = commit;
     }
 
-    display_commit(file_name, &current_commit);
+    current_commit.time().seconds()
 }
 
 fn get_head_commit(repo: &Repository) -> Result<Commit, git2::Error> {
@@ -91,14 +117,8 @@ fn get_head_commit(repo: &Repository) -> Result<Commit, git2::Error> {
         .map_err(|_| git2::Error::from_str("Couldn't find commit!"))
 }
 
-fn display_commit(file_name: &str, commit: &Commit) {
+fn get_china_time(timestamp: i64) -> DateTime<FixedOffset> {
     let china_timezone = FixedOffset::east(8 * 3600);
-    let timestamp = commit.time().seconds();
     let utc_time = DateTime::<Utc>::from_utc(NaiveDateTime::from_timestamp(timestamp, 0), Utc);
-    let china_time = utc_time.with_timezone(&china_timezone);
-    println!(
-        "Commit {} at: {}.",
-        file_name,
-        china_time.format("%Y-%m-%d %H:%M:%S"),
-    );
+    utc_time.with_timezone(&china_timezone)
 }
