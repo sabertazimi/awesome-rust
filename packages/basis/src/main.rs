@@ -48,7 +48,7 @@ fn get_git_timestamp(file_name: &str) {
             Err(_) => continue,
         };
 
-        if tree_entry.id().is_zero() == false {
+        if !tree_entry.id().is_zero() {
             head_tree_entry_id = tree_entry.id();
             current_commit = commit;
             break;
