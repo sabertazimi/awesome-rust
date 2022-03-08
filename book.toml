@@ -2,7 +2,7 @@
 authors = ["sabertazimi"]
 language = "zh-CN"
 multilingual = false
-src = "."
+src = "docs"
 title = "awesome-rust"
 
 [output.html]
