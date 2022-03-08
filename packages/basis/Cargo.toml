@@ -2,7 +2,7 @@
 name = "basis"
 version = "0.1.0"
 edition = "2021"
-description = "Rust Basis"
+description = "Rust basis."
 license = "MIT"
 homepage = "https://github.com/sabertazimi/awesome-rust"
 repository = "https://github.com/sabertazimi/awesome-rust"
