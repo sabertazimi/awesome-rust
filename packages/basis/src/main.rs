@@ -101,6 +101,7 @@ fn get_git_timestamp(file_name: &str) -> i64 {
             Err(_) => continue,
         };
 
+        // Find first object with same name but different SHA code.
         if tree_entry.id().ne(&head_tree_entry_id) {
             break;
         }
