@@ -11,15 +11,15 @@ fn main() -> std::io::Result<()> {
 fn git_snippet() {
     let files = [
         "crates/basis/src/main.rs",
-        ".github/workflows/ci.yml",
         "crates/basis/Cargo.toml",
+        ".github/workflows/ci.yml",
         "book.toml",
         "Cargo.toml",
-        "docs/SUMMARY.md",
-        "docs/README.md",
         "Cargo.lock",
-        "SUMMARY.md",
+        "docs/README.md",
+        "docs/SUMMARY.md",
         "README.md",
+        "SUMMARY.md",
         "NOT_FOUND.md",
     ];
 
