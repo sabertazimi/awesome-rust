@@ -4,6 +4,11 @@ use std::path::Path;
 
 // https://github.com/rust-lang/mdBook/pull/1506
 fn main() -> std::io::Result<()> {
+    git_snippet();
+    Ok(())
+}
+
+fn git_snippet() {
     let files = [
         "packages/basis/src/main.rs",
         ".github/workflows/ci.yml",
@@ -21,8 +26,6 @@ fn main() -> std::io::Result<()> {
     for file in files {
         find_git_timestamp(file);
     }
-
-    Ok(())
 }
 
 fn find_git_timestamp(file_name: &str) {
