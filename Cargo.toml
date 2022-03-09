@@ -1,8 +1,8 @@
 [workspace]
-
 members = [
   "crates/*",
 ]
+resolver = "2"
 
 [workspace.metadata.release]
 # cargo install cargo-release
