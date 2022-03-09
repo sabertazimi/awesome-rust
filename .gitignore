@@ -10,3 +10,8 @@
 **/*.rs.bk
 
 /book/
+
+/node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
