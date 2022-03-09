@@ -10,9 +10,9 @@ fn main() -> std::io::Result<()> {
 
 fn git_snippet() {
     let files = [
-        "packages/basis/src/main.rs",
+        "crates/basis/src/main.rs",
         ".github/workflows/ci.yml",
-        "packages/basis/Cargo.toml",
+        "crates/basis/Cargo.toml",
         "book.toml",
         "Cargo.toml",
         "docs/SUMMARY.md",
@@ -105,7 +105,7 @@ fn get_git_timestamp(file_name: &str) -> i64 {
         };
 
         // Find first object with same name but different SHA code.
-        if tree_entry.id().ne(&head_tree_entry_id) {
+        if tree_entry.id() != head_tree_entry_id {
             break;
         }
 
