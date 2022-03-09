@@ -109,13 +109,14 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [ubuntu-latest]
+        git-depth: [0, 1]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
           submodules: true
-          fetch-depth: 1
+          fetch-depth: ${{ matrix.git-depth }}
       - name: Cache cargo binaries and registry
         uses: actions/cache@v2
         with:
