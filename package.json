@@ -1,0 +1,24 @@
+{
+  "name": "awesome-rust",
+  "private": true,
+  "description": "Rust prototypes.",
+  "repository": "https://github.com/sabertazimi/awesome-rust",
+  "author": "sabertazimi <sabertazimi@gmail.com>",
+  "license": "MIT",
+  "packageManager": "yarn@1.22.17",
+  "scripts": {
+    "build": "cargo build --release",
+    "deps": "cargo install mdbook cargo-edit cargo-release cargo-workspace",
+    "dev": "cargo run",
+    "e2e": "cargo run --release",
+    "format": " cargo fmt",
+    "lint": "cargo fmt --check && cargo clippy",
+    "prelease": "cargo release",
+    "release": "cargo release -x",
+    "start": "yarn dev",
+    "test": "cargo test"
+  },
+  "workspaces": [
+    "packages/*"
+  ]
+}
