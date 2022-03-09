@@ -10,6 +10,7 @@
     "build": "cargo build --release",
     "deps": "cargo install mdbook cargo-edit cargo-release cargo-workspace",
     "dev": "cargo run",
+    "docs": "mdbook build",
     "e2e": "cargo run --release",
     "format": " cargo fmt",
     "lint": "cargo fmt --check && cargo clippy",
