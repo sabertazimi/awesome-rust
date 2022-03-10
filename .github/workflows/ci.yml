@@ -11,7 +11,7 @@ env:
 
 jobs:
   lint:
-    name: Linting on ${{ matrix.os }}
+    name: Linting
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: true
@@ -42,7 +42,7 @@ jobs:
           yarn lint
 
   build:
-    name: Building on ${{ matrix.os }}
+    name: Building
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: true
@@ -73,7 +73,7 @@ jobs:
           yarn build
 
   unit:
-    name: Unit testing on ${{ matrix.os }}
+    name: Unit testing
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: true
@@ -104,7 +104,7 @@ jobs:
           yarn test
 
   e2e:
-    name: E2E testing on ${{ matrix.os }}
+    name: E2E testing
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: true
