@@ -1,6 +1,7 @@
 use chrono::{DateTime, FixedOffset, NaiveDateTime, Utc};
 use git2::{Commit, ObjectType, Repository, Sort};
-use std::path::Path;
+use std::env;
+use std::path::{Path, PathBuf};
 
 // https://github.com/rust-lang/mdBook/pull/1506
 fn main() -> std::io::Result<()> {
@@ -49,7 +50,15 @@ fn find_git_timestamp(file_name: &str) {
 
 fn get_git_timestamp(file_name: &str) -> i64 {
     let file_path = Path::new(file_name);
-    let repo = match Repository::open("./.git") {
+    let pwd_path = match env::current_dir() {
+        Ok(pwd) => pwd,
+        Err(_) => PathBuf::from("."),
+    };
+    let git_path = match find_git_path(pwd_path.as_path()) {
+        Some(path) => path,
+        None => return 0,
+    };
+    let repo = match Repository::open(git_path) {
         Ok(repo) => repo,
         Err(_) => return 0,
     };
@@ -125,4 +134,25 @@ fn get_china_time(timestamp: i64) -> DateTime<FixedOffset> {
     let china_timezone = FixedOffset::east(8 * 3600);
     let utc_time = DateTime::<Utc>::from_utc(NaiveDateTime::from_timestamp(timestamp, 0), Utc);
     utc_time.with_timezone(&china_timezone)
+}
+
+fn find_git_path(path: &Path) -> Option<PathBuf> {
+    let mut current_path = path;
+    let mut git_dir = current_path.join(".git");
+    let root = Path::new("/");
+
+    while !git_dir.exists() {
+        current_path = match current_path.parent() {
+            Some(p) => p,
+            None => return None,
+        };
+
+        if current_path == root {
+            return None;
+        }
+
+        git_dir = current_path.join(".git");
+    }
+
+    git_dir.parent().map(|p| p.to_owned())
 }
