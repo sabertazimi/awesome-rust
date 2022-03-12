@@ -85,7 +85,7 @@ impl ToCommitTime for str {
         let mut walker = repo.revwalk()?;
         walker.push_head()?;
         walker.set_sorting(Sort::TIME)?;
-        let mut current_commit = head_commit;
+        let mut commit_time = head_commit.time().seconds();
 
         for oid in walker {
             let commit = repo.find_commit(match oid {
@@ -102,10 +102,10 @@ impl ToCommitTime for str {
                 break;
             }
 
-            current_commit = commit;
+            commit_time = commit.time().seconds();
         }
 
-        Ok(current_commit.time().seconds())
+        Ok(commit_time)
     }
 }
 
