@@ -30,10 +30,7 @@ fn git_snippet() {
 }
 
 fn find_git_timestamp(file_name: &str) {
-    let mut timestamp = match get_git_timestamp(file_name) {
-        Ok(timestamp) => timestamp,
-        Err(_) => 0,
-    };
+    let mut timestamp = get_git_timestamp(file_name).unwrap_or(0);
 
     // Fall back to build time.
     if timestamp == 0 {
@@ -53,7 +50,7 @@ fn find_git_timestamp(file_name: &str) {
 
 fn get_git_timestamp(file_name: &str) -> Result<i64, Error> {
     let file_path = Path::new(file_name);
-    let pwd_path = env::current_dir().unwrap_or(PathBuf::from("."));
+    let pwd_path = env::current_dir().unwrap_or_else(|_| PathBuf::from("."));
     let git_path = match find_git_path(pwd_path.as_path()) {
         Some(git_path) => git_path,
         None => return Err(Error::from_str("Not a git repository")),
