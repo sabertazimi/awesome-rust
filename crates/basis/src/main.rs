@@ -1,5 +1,5 @@
 use chrono::{DateTime, FixedOffset, NaiveDateTime, Utc};
-use git2::{Commit, ObjectType, Repository, Sort};
+use git2::{Commit, Error, ObjectType, Repository, Sort};
 use std::env;
 use std::path::{Path, PathBuf};
 
@@ -30,7 +30,10 @@ fn git_snippet() {
 }
 
 fn find_git_timestamp(file_name: &str) {
-    let mut timestamp = get_git_timestamp(file_name);
+    let mut timestamp = match get_git_timestamp(file_name) {
+        Ok(timestamp) => timestamp,
+        Err(_) => 0,
+    };
 
     // Fall back to build time.
     if timestamp == 0 {
@@ -48,80 +51,47 @@ fn find_git_timestamp(file_name: &str) {
     );
 }
 
-fn get_git_timestamp(file_name: &str) -> i64 {
+fn get_git_timestamp(file_name: &str) -> Result<i64, Error> {
     let file_path = Path::new(file_name);
-    let pwd_path = match env::current_dir() {
-        Ok(pwd) => pwd,
-        Err(_) => PathBuf::from("."),
-    };
+    let pwd_path = env::current_dir().unwrap_or(PathBuf::from("."));
     let git_path = match find_git_path(pwd_path.as_path()) {
-        Some(path) => path,
-        None => return 0,
+        Some(git_path) => git_path,
+        None => return Err(Error::from_str("Not a git repository")),
     };
-    let repo = match Repository::open(git_path) {
-        Ok(repo) => repo,
-        Err(_) => return 0,
-    };
-    let head_commit = match get_head_commit(&repo) {
-        Ok(commit) => commit,
-        Err(_) => return 0,
-    };
-    let head_tree = match head_commit.tree() {
-        Ok(tree) => tree,
-        Err(_) => return 0,
-    };
-    let head_tree_entry = match head_tree.get_path(file_path) {
-        Ok(entry) => entry,
-        Err(_) => return 0,
-    };
-    let head_tree_entry_id = head_tree_entry.id();
+    let repo = Repository::open(git_path)?;
+    let head_commit = get_head_commit(&repo)?;
+    let head_entry = head_commit.tree()?.get_path(file_path)?;
+    let head_entry_id = head_entry.id();
 
-    if head_tree_entry_id.is_zero() {
+    if head_entry_id.is_zero() {
         println!("Couldn't find {} on head commit!", file_name);
-        return 0;
+        return Err(Error::from_str("Couldn't find file on head commit!"));
     }
 
-    let mut walker = match repo.revwalk() {
-        Ok(walker) => walker,
-        Err(_) => return 0,
-    };
-    match walker.push_head() {
-        Ok(_) => {}
-        Err(_) => return 0,
-    };
-    match walker.set_sorting(Sort::TIME) {
-        Ok(_) => {}
-        Err(_) => return 0,
-    };
+    let mut walker = repo.revwalk()?;
+    walker.push_head()?;
+    walker.set_sorting(Sort::TIME)?;
     let mut current_commit = head_commit;
 
-    for commit_oid in walker {
-        let oid = match commit_oid {
+    for oid in walker {
+        let commit = repo.find_commit(match oid {
             Ok(oid) => oid,
-            Err(_) => return 0,
-        };
-        let commit = match repo.find_commit(oid) {
-            Ok(commit) => commit,
-            Err(_) => return 0,
-        };
-        let tree = match commit.tree() {
-            Ok(tree) => tree,
-            Err(_) => return 0,
-        };
-        let tree_entry = match tree.get_path(file_path) {
+            Err(_) => return Err(Error::from_str("Couldn't find commit!")),
+        })?;
+        let tree_entry = match commit.tree()?.get_path(file_path) {
             Ok(entry) => entry,
-            Err(_) => continue,
+            Err(_) => break,
         };
 
         // Find first object with same name but different SHA code.
-        if tree_entry.id() != head_tree_entry_id {
+        if tree_entry.id() != head_entry_id {
             break;
         }
 
         current_commit = commit;
     }
 
-    current_commit.time().seconds()
+    Ok(current_commit.time().seconds())
 }
 
 fn get_head_commit(repo: &Repository) -> Result<Commit<'_>, git2::Error> {
@@ -137,15 +107,12 @@ fn get_china_time(timestamp: i64) -> DateTime<FixedOffset> {
 }
 
 fn find_git_path(path: &Path) -> Option<PathBuf> {
+    let root = Path::new("/");
     let mut current_path = path;
     let mut git_dir = current_path.join(".git");
-    let root = Path::new("/");
 
     while !git_dir.exists() {
-        current_path = match current_path.parent() {
-            Some(p) => p,
-            None => return None,
-        };
+        current_path = current_path.parent().unwrap_or(root);
 
         if current_path == root {
             return None;
