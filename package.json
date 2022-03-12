@@ -14,7 +14,7 @@
     "e2e": "cargo run --release",
     "format": " cargo fmt",
     "lint": "cargo fmt --check && cargo clippy -- -D warnings",
-    "lint:fix": "cargo fmt && cargo clippy --fix --allow-staged",
+    "lint:fix": "cargo fmt && cargo clippy --fix --allow-dirty --allow-staged",
     "prelease": "cargo release",
     "release": "cargo release -x",
     "start": "yarn dev",
