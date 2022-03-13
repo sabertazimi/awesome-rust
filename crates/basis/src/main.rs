@@ -1,8 +1,8 @@
 mod git;
 mod time;
 
+use crate::time::{ToCommitTime, ToTime};
 use chrono::Utc;
-use time::{ToCommitTime, ToTime};
 
 // https://github.com/rust-lang/mdBook/pull/1506
 fn main() -> std::io::Result<()> {
