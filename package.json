@@ -18,7 +18,7 @@
     "e2e:basis": "cargo run -p basis --release",
     "e2e:rustlings": "cd crates/rustlings && cargo run --release",
     "format": "cargo fmt && cargo clippy --fix --allow-dirty --allow-staged",
-    "lint": "cargo fmt --check && cargo clippy -- -D warnings",
+    "lint": "cargo fmt --check && cargo clippy --all-targets --release --locked -- -D clippy::all",
     "prelease": "cargo release",
     "release": "cargo release -x",
     "start": "yarn dev:rustlings",
