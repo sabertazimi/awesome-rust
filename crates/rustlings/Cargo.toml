@@ -5,7 +5,7 @@ authors = ["anastasie <ana@ana.st>", "Carol (Nichols || Goulding) <carol.nichols
 edition = "2021"
 
 [dependencies]
-argh = "0.1.4"
+argh = "0.1.7"
 indicatif = "0.10.3"
 console = "0.7.7"
 notify = "4.0.15"
