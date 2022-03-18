@@ -15,7 +15,8 @@
       ],
       "automerge": true,
       "automergeType": "pr",
-      "automergeStrategy": "squash"
+      "automergeStrategy": "squash",
+      "groupName": "dependencies (non-major)"
     }
   ],
   "rangeStrategy": "bump",
