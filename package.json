@@ -9,16 +9,19 @@
   "scripts": {
     "build": "cargo build --release",
     "deps": "cargo install mdbook cargo-edit cargo-release cargo-workspace",
-    "dev": "cargo run",
+    "dev:basis": "cargo run -p basis",
+    "dev:rustlings": "cd crates/rustlings && cargo run -- watch",
     "docs": "yarn docs:book && yarn docs:api",
     "docs:book": "mdbook build",
     "docs:api": "cargo doc --workspace --no-deps && mv target/doc book/",
-    "e2e": "cargo run --release",
+    "e2e": "yarn e2e:basis && yarn e2e:rustlings",
+    "e2e:basis": "cargo run -p basis --release",
+    "e2e:rustlings": "cd crates/rustlings && cargo run --release",
     "format": "cargo fmt && cargo clippy --fix --allow-dirty --allow-staged",
     "lint": "cargo fmt --check && cargo clippy -- -D warnings",
     "prelease": "cargo release",
     "release": "cargo release -x",
-    "start": "yarn dev",
+    "start": "yarn dev:rustlings",
     "test": "cargo test"
   },
   "workspaces": [

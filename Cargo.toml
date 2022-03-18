@@ -1,3 +1,4 @@
+# https://doc.rust-lang.org/cargo/reference/workspaces.html
 [workspace]
 members = [
   "crates/*",
