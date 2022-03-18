@@ -2,6 +2,7 @@
 
 ```bash
 cargo run -- watch
+cargo run -- verify
 ```
 
 ## Reference
