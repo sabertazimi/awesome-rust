@@ -4,6 +4,7 @@
     "indicatif",
     "mdbook",
     "nocapture",
+    "Nomicon",
     "prelease"
   ]
 }
