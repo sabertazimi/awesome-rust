@@ -17,7 +17,10 @@ mod tests {
 
     #[test]
     fn classic_c_structs() {
-        let green = ColorClassicStruct { name: "green", hex: "#00FF00"};
+        let green = ColorClassicStruct {
+            name: "green",
+            hex: "#00FF00",
+        };
 
         assert_eq!(green.name, "green");
         assert_eq!(green.hex, "#00FF00");
