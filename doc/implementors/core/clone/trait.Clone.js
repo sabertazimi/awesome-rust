@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["rustlings"] = [{"text":"impl <a class=\"trait\" href=\"https://doc.rust-lang.org/1.62.1/core/clone/trait.Clone.html\" title=\"trait core::clone::Clone\">Clone</a> for <a class=\"enum\" href=\"rustlings/exercise/enum.Mode.html\" title=\"enum rustlings::exercise::Mode\">Mode</a>","synthetic":false,"types":["rustlings::exercise::Mode"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

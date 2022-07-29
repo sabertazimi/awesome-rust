@@ -1,0 +1,4 @@
+(function() {var implementors = {};
+implementors["basis"] = [{"text":"impl&lt;T&gt; <a class=\"trait\" href=\"https://doc.rust-lang.org/1.62.1/core/ops/drop/trait.Drop.html\" title=\"trait core::ops::drop::Drop\">Drop</a> for <a class=\"struct\" href=\"basis/list/struct.Stack.html\" title=\"struct basis::list::Stack\">Stack</a>&lt;T&gt;","synthetic":false,"types":["basis::list::stack::Stack"]}];
+implementors["rustlings"] = [{"text":"impl <a class=\"trait\" href=\"https://doc.rust-lang.org/1.62.1/core/ops/drop/trait.Drop.html\" title=\"trait core::ops::drop::Drop\">Drop</a> for <a class=\"struct\" href=\"rustlings/exercise/struct.FileHandle.html\" title=\"struct rustlings::exercise::FileHandle\">FileHandle</a>","synthetic":false,"types":["rustlings::exercise::FileHandle"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

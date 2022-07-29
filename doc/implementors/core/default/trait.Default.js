@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["basis"] = [{"text":"impl&lt;T&gt; <a class=\"trait\" href=\"https://doc.rust-lang.org/1.62.1/core/default/trait.Default.html\" title=\"trait core::default::Default\">Default</a> for <a class=\"struct\" href=\"basis/list/struct.Stack.html\" title=\"struct basis::list::Stack\">Stack</a>&lt;T&gt;","synthetic":false,"types":["basis::list::stack::Stack"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()
