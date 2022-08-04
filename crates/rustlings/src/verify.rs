@@ -2,6 +2,7 @@ use crate::exercise::{CompiledExercise, Exercise, Mode, State};
 use console::style;
 use indicatif::ProgressBar;
 use std::env;
+use std::time::Duration;
 
 // Verify that the provided container of Exercise objects
 // can be compiled and run without any failures.
@@ -40,7 +41,7 @@ pub fn test(exercise: &Exercise, verbose: bool) -> Result<(), ()> {
 fn compile_only(exercise: &Exercise) -> Result<bool, ()> {
     let progress_bar = ProgressBar::new_spinner();
     progress_bar.set_message(format!("Compiling {}...", exercise));
-    progress_bar.enable_steady_tick(100);
+    progress_bar.enable_steady_tick(Duration::from_millis(100));
 
     let _ = compile(exercise, &progress_bar)?;
     progress_bar.finish_and_clear();
@@ -53,7 +54,7 @@ fn compile_only(exercise: &Exercise) -> Result<bool, ()> {
 fn compile_and_run_interactively(exercise: &Exercise) -> Result<bool, ()> {
     let progress_bar = ProgressBar::new_spinner();
     progress_bar.set_message(format!("Compiling {}...", exercise));
-    progress_bar.enable_steady_tick(100);
+    progress_bar.enable_steady_tick(Duration::from_millis(100));
 
     let compilation = compile(exercise, &progress_bar)?;
 
@@ -81,7 +82,7 @@ fn compile_and_run_interactively(exercise: &Exercise) -> Result<bool, ()> {
 fn compile_and_test(exercise: &Exercise, run_mode: RunMode, verbose: bool) -> Result<bool, ()> {
     let progress_bar = ProgressBar::new_spinner();
     progress_bar.set_message(format!("Testing {}...", exercise));
-    progress_bar.enable_steady_tick(100);
+    progress_bar.enable_steady_tick(Duration::from_millis(100));
 
     let compilation = compile(exercise, &progress_bar)?;
     let result = compilation.run();
