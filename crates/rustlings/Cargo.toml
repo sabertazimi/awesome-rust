@@ -5,13 +5,13 @@ authors = ["anastasie <ana@ana.st>", "Carol (Nichols || Goulding) <carol.nichols
 edition = "2021"
 
 [dependencies]
-argh = "0.1.8"
+argh = "0.1.9"
 indicatif = "0.17.1"
 console = "0.15.1"
 notify = "4.0.17"
 toml = "0.5.9"
 regex = "1.6.0"
-serde = {version = "1.0.144", features = ["derive"]}
+serde = {version = "1.0.145", features = ["derive"]}
 
 [[bin]]
 name = "rustlings"
