@@ -11,13 +11,13 @@ console = "0.15.2"
 notify = "4.0.17"
 toml = "0.5.9"
 regex = "1.6.0"
-serde = {version = "1.0.145", features = ["derive"]}
+serde = {version = "1.0.147", features = ["derive"]}
 
 [[bin]]
 name = "rustlings"
 path = "src/main.rs"
 
 [dev-dependencies]
-assert_cmd = "2.0.4"
+assert_cmd = "2.0.5"
 predicates = "2.1.1"
 glob = "0.3.0"
