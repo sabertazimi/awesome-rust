@@ -181,7 +181,7 @@ exercise. Make sure to have your editor open!
                 let filter_cond = filters
                     .split(',')
                     .filter(|f| !f.trim().is_empty())
-                    .any(|f| e.name.contains(&f) || fname.contains(&f));
+                    .any(|f| e.name.contains(f) || fname.contains(f));
                 let status = if e.looks_done() {
                     exercises_done += 1;
                     "Done"
@@ -422,7 +422,7 @@ fn watch(exercises: &[Exercise], verbose: bool) -> notify::Result<WatchStatus> {
 
 fn rustc_exists() -> bool {
     Command::new("rustc")
-        .args(&["--version"])
+        .args(["--version"])
         .stdout(Stdio::null())
         .spawn()
         .and_then(|mut child| child.wait())

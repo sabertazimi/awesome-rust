@@ -44,7 +44,7 @@ fn verify_fails_if_some_fails() {
 fn run_single_compile_success() {
     Command::cargo_bin("rustlings")
         .unwrap()
-        .args(&["run", "compSuccess"])
+        .args(["run", "compSuccess"])
         .current_dir("tests/fixture/success/")
         .assert()
         .success();
@@ -54,7 +54,7 @@ fn run_single_compile_success() {
 fn run_single_compile_failure() {
     Command::cargo_bin("rustlings")
         .unwrap()
-        .args(&["run", "compFailure"])
+        .args(["run", "compFailure"])
         .current_dir("tests/fixture/failure/")
         .assert()
         .code(1);
@@ -64,7 +64,7 @@ fn run_single_compile_failure() {
 fn run_single_test_success() {
     Command::cargo_bin("rustlings")
         .unwrap()
-        .args(&["run", "testSuccess"])
+        .args(["run", "testSuccess"])
         .current_dir("tests/fixture/success/")
         .assert()
         .success();
@@ -74,7 +74,7 @@ fn run_single_test_success() {
 fn run_single_test_failure() {
     Command::cargo_bin("rustlings")
         .unwrap()
-        .args(&["run", "testFailure"])
+        .args(["run", "testFailure"])
         .current_dir("tests/fixture/failure/")
         .assert()
         .code(1);
@@ -84,7 +84,7 @@ fn run_single_test_failure() {
 fn run_single_test_not_passed() {
     Command::cargo_bin("rustlings")
         .unwrap()
-        .args(&["run", "testNotPassed.rs"])
+        .args(["run", "testNotPassed.rs"])
         .current_dir("tests/fixture/failure/")
         .assert()
         .code(1);
@@ -104,7 +104,7 @@ fn run_single_test_no_filename() {
 fn run_single_test_no_exercise() {
     Command::cargo_bin("rustlings")
         .unwrap()
-        .args(&["run", "compNoExercise.rs"])
+        .args(["run", "compNoExercise.rs"])
         .current_dir("tests/fixture/failure")
         .assert()
         .code(1);
@@ -114,7 +114,7 @@ fn run_single_test_no_exercise() {
 fn get_hint_for_single_test() {
     Command::cargo_bin("rustlings")
         .unwrap()
-        .args(&["hint", "testFailure"])
+        .args(["hint", "testFailure"])
         .current_dir("tests/fixture/failure")
         .assert()
         .code(0)
@@ -126,7 +126,7 @@ fn all_exercises_require_confirmation() {
     for exercise in glob("exercises/**/*.rs").unwrap() {
         let path = exercise.unwrap();
         let source = {
-            let mut file = File::open(&path).unwrap();
+            let mut file = File::open(path).unwrap();
             let mut s = String::new();
             file.read_to_string(&mut s).unwrap();
             s
@@ -142,7 +142,7 @@ fn all_exercises_require_confirmation() {
 fn run_compile_exercise_does_not_prompt() {
     Command::cargo_bin("rustlings")
         .unwrap()
-        .args(&["run", "pending_exercise"])
+        .args(["run", "pending_exercise"])
         .current_dir("tests/fixture/state")
         .assert()
         .code(0)
@@ -153,7 +153,7 @@ fn run_compile_exercise_does_not_prompt() {
 fn run_test_exercise_does_not_prompt() {
     Command::cargo_bin("rustlings")
         .unwrap()
-        .args(&["run", "pending_test_exercise"])
+        .args(["run", "pending_test_exercise"])
         .current_dir("tests/fixture/state")
         .assert()
         .code(0)
@@ -164,7 +164,7 @@ fn run_test_exercise_does_not_prompt() {
 fn run_single_test_success_with_output() {
     Command::cargo_bin("rustlings")
         .unwrap()
-        .args(&["--nocapture", "run", "testSuccess"])
+        .args(["--nocapture", "run", "testSuccess"])
         .current_dir("tests/fixture/success/")
         .assert()
         .code(0)
@@ -175,7 +175,7 @@ fn run_single_test_success_with_output() {
 fn run_single_test_success_without_output() {
     Command::cargo_bin("rustlings")
         .unwrap()
-        .args(&["run", "testSuccess"])
+        .args(["run", "testSuccess"])
         .current_dir("tests/fixture/success/")
         .assert()
         .code(0)
@@ -186,7 +186,7 @@ fn run_single_test_success_without_output() {
 fn run_rustlings_list() {
     Command::cargo_bin("rustlings")
         .unwrap()
-        .args(&["list"])
+        .args(["list"])
         .current_dir("tests/fixture/success")
         .assert()
         .success();
@@ -196,7 +196,7 @@ fn run_rustlings_list() {
 fn run_rustlings_list_no_pending() {
     Command::cargo_bin("rustlings")
         .unwrap()
-        .args(&["list"])
+        .args(["list"])
         .current_dir("tests/fixture/success")
         .assert()
         .success()
@@ -207,7 +207,7 @@ fn run_rustlings_list_no_pending() {
 fn run_rustlings_list_both_done_and_pending() {
     Command::cargo_bin("rustlings")
         .unwrap()
-        .args(&["list"])
+        .args(["list"])
         .current_dir("tests/fixture/state")
         .assert()
         .success()
@@ -218,7 +218,7 @@ fn run_rustlings_list_both_done_and_pending() {
 fn run_rustlings_list_without_pending() {
     Command::cargo_bin("rustlings")
         .unwrap()
-        .args(&["list", "--solved"])
+        .args(["list", "--solved"])
         .current_dir("tests/fixture/state")
         .assert()
         .success()
@@ -229,7 +229,7 @@ fn run_rustlings_list_without_pending() {
 fn run_rustlings_list_without_done() {
     Command::cargo_bin("rustlings")
         .unwrap()
-        .args(&["list", "--unsolved"])
+        .args(["list", "--unsolved"])
         .current_dir("tests/fixture/state")
         .assert()
         .success()
