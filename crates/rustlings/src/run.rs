@@ -21,7 +21,7 @@ pub fn run(exercise: &Exercise, verbose: bool) -> Result<(), ()> {
 // This is strictly for non-test binaries, so output is displayed
 fn compile_and_run(exercise: &Exercise) -> Result<(), ()> {
     let progress_bar = ProgressBar::new_spinner();
-    progress_bar.set_message(format!("Compiling {}...", exercise));
+    progress_bar.set_message(format!("Compiling {exercise}..."));
     progress_bar.enable_steady_tick(Duration::from_millis(100));
 
     let compilation_result = exercise.compile();
@@ -38,7 +38,7 @@ fn compile_and_run(exercise: &Exercise) -> Result<(), ()> {
         }
     };
 
-    progress_bar.set_message(format!("Running {}...", exercise));
+    progress_bar.set_message(format!("Running {exercise}..."));
     let result = compilation.run();
     progress_bar.finish_and_clear();
 
