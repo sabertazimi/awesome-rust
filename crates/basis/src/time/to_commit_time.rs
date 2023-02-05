@@ -21,7 +21,7 @@ impl ToCommitTime for str {
         let head_entry_id = head_entry.id();
 
         if head_entry_id.is_zero() {
-            println!("Couldn't find {} on head commit!", self);
+            println!("Couldn't find {self} on head commit!");
             return Err(Error::from_str("Couldn't find file on head commit!"));
         }
 

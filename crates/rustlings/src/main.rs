@@ -103,7 +103,7 @@ fn main() {
     let args: Args = argh::from_env();
 
     if args.version {
-        println!("v{}", VERSION);
+        println!("v{VERSION}");
         std::process::exit(0);
     }
 
@@ -166,7 +166,7 @@ started, here's a couple of notes about how Rustlings operates:
 Got all that? Great! To get started, run `rustlings watch` in order to get the first
 exercise. Make sure to have your editor open!
 ";
-        println!("{}", text);
+        println!("{text}");
         std::process::exit(0);
     });
     match command {
@@ -195,7 +195,7 @@ exercise. Make sure to have your editor open!
                 };
                 if solve_cond && (filter_cond || subargs.filter.is_none()) {
                     let line = if subargs.paths {
-                        format!("{}\n", fname)
+                        format!("{fname}\n")
                     } else if subargs.names {
                         format!("{}\n", e.name)
                     } else {
@@ -244,10 +244,7 @@ exercise. Make sure to have your editor open!
 
         Subcommands::Watch(_subargs) => match watch(&exercises, verbose) {
             Err(e) => {
-                println!(
-                    "Error: Could not watch your progress. Error message was {:?}.",
-                    e
-                );
+                println!("Error: Could not watch your progress. Error message was {e:?}.");
                 println!("Most likely you've run out of disk space or your 'inotify limit' has been reached.");
                 std::process::exit(1);
             }
@@ -309,7 +306,7 @@ fn spawn_watch_shell(
                 let input = input.trim();
                 if input == "hint" {
                     if let Some(hint) = &*failed_exercise_hint.lock().unwrap() {
-                        println!("{}", hint);
+                        println!("{hint}");
                     }
                 } else if input == "clear" {
                     println!("\x1B[2J\x1B[1;1H");
@@ -326,10 +323,10 @@ fn spawn_watch_shell(
                     println!("Watch mode automatically re-evaluates the current exercise");
                     println!("when you edit a file's contents.")
                 } else {
-                    println!("unknown command: {}", input);
+                    println!("unknown command: {input}");
                 }
             }
-            Err(error) => println!("error reading command: {}", error),
+            Err(error) => println!("error reading command: {error}"),
         }
     });
 }
@@ -349,7 +346,7 @@ fn find_exercise<'a>(name: &str, exercises: &'a [Exercise]) -> &'a Exercise {
             .iter()
             .find(|e| e.name == name)
             .unwrap_or_else(|| {
-                println!("No exercise found for '{}'!", name);
+                println!("No exercise found for '{name}'!");
                 std::process::exit(1)
             })
     }
@@ -411,7 +408,7 @@ fn watch(exercises: &[Exercise], verbose: bool) -> notify::Result<WatchStatus> {
             Err(RecvTimeoutError::Timeout) => {
                 // the timeout expired, just check the `should_quit` variable below then loop again
             }
-            Err(e) => println!("watch error: {:?}", e),
+            Err(e) => println!("watch error: {e:?}"),
         }
         // Check if we need to exit
         if should_quit.load(Ordering::SeqCst) {
