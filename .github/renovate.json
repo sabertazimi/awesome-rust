@@ -6,6 +6,12 @@
   "labels": ["dependencies"],
   "packageRules": [
     {
+      "matchUpdateTypes": ["major"],
+      "automerge": true,
+      "automergeType": "pr",
+      "automergeStrategy": "squash"
+    },
+    {
       "matchUpdateTypes": [
         "minor",
         "patch",
