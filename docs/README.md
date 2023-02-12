@@ -2,7 +2,7 @@
 
 [![Author](https://img.shields.io/badge/author-sabertaz-lightgrey?style=for-the-badge)](https://github.com/sabertazimi)
 [![LICENSE](https://img.shields.io/github/license/sabertazimi/awesome-rust?style=for-the-badge)](https://github.com/sabertazimi/awesome-rust/blob/main/LICENSE)
-[![CI](https://img.shields.io/github/workflow/status/sabertazimi/awesome-rust/CI/main?style=for-the-badge&logo=github)](https://github.com/sabertazimi/awesome-rust/actions/workflows/ci.yml)
+[![CI](https://img.shields.io/github/actions/workflow/status/sabertazimi/awesome-rust/ci.yml?branch=main&style=for-the-badge&logo=github)](https://github.com/sabertazimi/awesome-rust/actions/workflows/ci.yml)
 
 :wrench: Rust prototypes.
 
