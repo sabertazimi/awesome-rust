@@ -9,15 +9,15 @@ argh = "0.1.10"
 indicatif = "0.17.3"
 console = "0.15.5"
 notify = "4.0.17"
-toml = "0.7.2"
+toml = "0.7.3"
 regex = "1.7.1"
-serde = {version = "1.0.155", features = ["derive"]}
+serde = {version = "1.0.156", features = ["derive"]}
 
 [[bin]]
 name = "rustlings"
 path = "src/main.rs"
 
 [dev-dependencies]
-assert_cmd = "2.0.8"
+assert_cmd = "2.0.10"
 predicates = "2.1.5"
 glob = "0.3.1"
