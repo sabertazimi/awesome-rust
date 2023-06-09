@@ -10,8 +10,8 @@ indicatif = "0.17.5"
 console = "0.15.7"
 notify = "4.0.17"
 toml = "0.7.4"
-regex = "1.8.3"
-serde = {version = "1.0.163", features = ["derive"]}
+regex = "1.8.4"
+serde = {version = "1.0.164", features = ["derive"]}
 
 [[bin]]
 name = "rustlings"
