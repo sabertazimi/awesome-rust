@@ -19,7 +19,7 @@ jobs:
         os: [ubuntu-latest]
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           submodules: true
           fetch-depth: 1
@@ -50,7 +50,7 @@ jobs:
         os: [ubuntu-latest]
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           submodules: true
           fetch-depth: 1
@@ -81,7 +81,7 @@ jobs:
         os: [ubuntu-latest]
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           submodules: true
           fetch-depth: 1
@@ -113,7 +113,7 @@ jobs:
         git-depth: [0]
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           submodules: true
           fetch-depth: ${{ matrix.git-depth }}
@@ -140,7 +140,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           submodules: true
           fetch-depth: 0 # Keep `0` for last updated time
