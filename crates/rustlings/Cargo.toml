@@ -9,9 +9,9 @@ argh = "0.1.12"
 indicatif = "0.17.7"
 console = "0.15.7"
 notify = "4.0.17"
-toml = "0.8.2"
+toml = "0.8.6"
 regex = "1.10.2"
-serde = {version = "1.0.189", features = ["derive"]}
+serde = {version = "1.0.190", features = ["derive"]}
 
 [[bin]]
 name = "rustlings"
