@@ -24,7 +24,7 @@ jobs:
           submodules: true
           fetch-depth: 1
       - name: Cache cargo binaries and registry
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ~/.cargo/bin/
@@ -55,7 +55,7 @@ jobs:
           submodules: true
           fetch-depth: 1
       - name: Cache cargo binaries and registry
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ~/.cargo/bin/
@@ -86,7 +86,7 @@ jobs:
           submodules: true
           fetch-depth: 1
       - name: Cache cargo binaries and registry
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ~/.cargo/bin/
@@ -118,7 +118,7 @@ jobs:
           submodules: true
           fetch-depth: ${{ matrix.git-depth }}
       - name: Cache cargo binaries and registry
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ~/.cargo/bin/
@@ -145,7 +145,7 @@ jobs:
           submodules: true
           fetch-depth: 0 # Keep `0` for last updated time
       - name: Cache cargo binaries and registry
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ~/.cargo/bin/
