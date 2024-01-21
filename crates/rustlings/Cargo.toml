@@ -10,7 +10,7 @@ indicatif = "0.17.7"
 console = "0.15.8"
 notify = "4.0.17"
 toml = "0.8.8"
-regex = "1.10.2"
+regex = "1.10.3"
 serde = {version = "1.0.195", features = ["derive"]}
 
 [[bin]]
