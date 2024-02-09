@@ -11,4 +11,4 @@ repository = "https://github.com/sabertazimi/awesome-rust"
 
 [dependencies]
 chrono = "0.4.33"
-git2 = "0.18.1"
+git2 = "0.18.2"
