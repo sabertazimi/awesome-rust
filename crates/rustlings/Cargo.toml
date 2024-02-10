@@ -6,7 +6,7 @@ edition = "2021"
 
 [dependencies]
 argh = "0.1.12"
-indicatif = "0.17.7"
+indicatif = "0.17.8"
 console = "0.15.8"
 notify = "4.0.17"
 toml = "0.8.10"
