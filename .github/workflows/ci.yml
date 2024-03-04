@@ -23,6 +23,8 @@ jobs:
         with:
           submodules: true
           fetch-depth: 1
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
       - name: Cache cargo binaries and registry
         uses: actions/cache@v4
         with:
@@ -39,7 +41,7 @@ jobs:
           cargo -V
       - name: Run linter tests
         run: |
-          yarn lint
+          pnpm lint
 
   build:
     name: Building
@@ -54,6 +56,8 @@ jobs:
         with:
           submodules: true
           fetch-depth: 1
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
       - name: Cache cargo binaries and registry
         uses: actions/cache@v4
         with:
@@ -70,7 +74,7 @@ jobs:
           cargo -V
       - name: Build binaries
         run: |
-          yarn build
+          pnpm build
 
   unit:
     name: Unit Testing
@@ -85,6 +89,8 @@ jobs:
         with:
           submodules: true
           fetch-depth: 1
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
       - name: Cache cargo binaries and registry
         uses: actions/cache@v4
         with:
@@ -101,7 +107,7 @@ jobs:
           cargo -V
       - name: Run unit tests
         run: |
-          yarn test
+          pnpm test
 
   e2e:
     name: E2E Testing
@@ -117,6 +123,8 @@ jobs:
         with:
           submodules: true
           fetch-depth: ${{ matrix.git-depth }}
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
       - name: Cache cargo binaries and registry
         uses: actions/cache@v4
         with:
@@ -133,7 +141,7 @@ jobs:
           cargo -V
       - name: Run e2e tests
         run: |
-          yarn e2e
+          pnpm e2e
 
   docs:
     name: Documentation
@@ -144,6 +152,8 @@ jobs:
         with:
           submodules: true
           fetch-depth: 0 # Keep `0` for last updated time
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
       - name: Cache cargo binaries and registry
         uses: actions/cache@v4
         with:
@@ -165,7 +175,7 @@ jobs:
           mdbook -V
       - name: Build documentation
         run: |
-          yarn docs
+          pnpm run docs
       - name: Deploy to Github Pages
         uses: peaceiris/actions-gh-pages@v3
         if: ${{ github.ref == 'refs/heads/main' }}
