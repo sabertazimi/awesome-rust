@@ -3,6 +3,8 @@ name: CI
 on:
   push:
     branches: [ main ]
+    tags:
+      - '*'
   pull_request:
     branches: [ main ]
 
@@ -42,39 +44,6 @@ jobs:
       - name: Run linter tests
         run: |
           pnpm lint
-
-  build:
-    name: Building
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: true
-      matrix:
-        os: [ubuntu-latest]
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          submodules: true
-          fetch-depth: 1
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v3
-      - name: Cache cargo binaries and registry
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.cargo/bin/
-            ~/.cargo/registry/index/
-            ~/.cargo/registry/cache/
-            ~/.cargo/git/db/
-            target/
-          key: ${{ runner.os }}-cargo-build-${{ hashFiles('**/Cargo.lock') }}
-      - name: Check toolchain version
-        run: |
-          rustc -V
-          cargo -V
-      - name: Build binaries
-        run: |
-          pnpm build
 
   unit:
     name: Unit Testing
@@ -142,6 +111,39 @@ jobs:
       - name: Run e2e tests
         run: |
           pnpm e2e
+    
+  build:
+    name: Building
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [ubuntu-latest]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+          fetch-depth: 1
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+      - name: Cache cargo binaries and registry
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            target/
+          key: ${{ runner.os }}-cargo-build-${{ hashFiles('**/Cargo.lock') }}
+      - name: Check toolchain version
+        run: |
+          rustc -V
+          cargo -V
+      - name: Build binaries
+        run: |
+          pnpm build
 
   docs:
     name: Documentation
@@ -186,3 +188,26 @@ jobs:
           user_name: 'github-actions[bot]'
           user_email: 'github-actions[bot]@users.noreply.github.com'
           commit_message: ${{ github.event.head_commit.message }}
+
+  publish:
+    name: Publishment
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    needs: [lint, unit, e2e, build]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+          fetch-depth: 0
+      - name: Setup Node environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          architecture: x64
+          registry-url: https://registry.npmjs.org/
+      - name: Release to GitHub
+        run: |
+          npx changelogithub
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
