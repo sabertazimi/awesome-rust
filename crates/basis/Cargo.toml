@@ -10,5 +10,5 @@ repository = "https://github.com/sabertazimi/awesome-rust"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-chrono = "0.4.37"
+chrono = "0.4.38"
 git2 = "0.18.3"
