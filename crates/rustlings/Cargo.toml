@@ -11,7 +11,7 @@ console = "0.15.8"
 notify = "4.0.17"
 toml = "0.8.12"
 regex = "1.10.4"
-serde = {version = "1.0.199", features = ["derive"]}
+serde = {version = "1.0.200", features = ["derive"]}
 
 [[bin]]
 name = "rustlings"
