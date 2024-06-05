@@ -1,7 +1,9 @@
 # https://doc.rust-lang.org/cargo/reference/workspaces.html
 [workspace]
 members = [
-  "crates/*",
+  "crates/basis",
+  "crates/rustlings",
+  "crates/exercism/*",
 ]
 exclude = [
   "crates/rustlings/exercises/clippy",
