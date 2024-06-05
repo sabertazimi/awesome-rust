@@ -15,3 +15,5 @@
 
 .vscode/*
 !.vscode/settings.json
+
+.exercism/

@@ -915,30 +915,6 @@ path = "exercises/quiz4.rs"
 mode = "test"
 hint = "No hints this time ;)"
 
-#  CLIPPY
-
-[[exercises]]
-name = "clippy1"
-path = "exercises/clippy/clippy1.rs"
-mode = "clippy"
-hint = """
-Rust stores the highest precision version of any long or inifinite precision
-mathematical constants in the rust standard library.
-https://doc.rust-lang.org/stable/std/f32/consts/index.html
-
-We may be tempted to use our own approximations for certain mathematical constants,
-but clippy recognizes those imprecise mathematical constants as a source of 
-potential error.
-See the suggestions of the clippy warning in compile output and use the
-appropriate replacement constant from std::f32::consts..."""
-
-[[exercises]]
-name = "clippy2"
-path = "exercises/clippy/clippy2.rs"
-mode = "clippy"
-hint = """
-`for` loops over Option values are more clearly expressed as an `if let`"""
-
 # TYPE CONVERSIONS
 
 [[exercises]]
