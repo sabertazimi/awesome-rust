@@ -5,9 +5,6 @@ members = [
   "crates/rustlings",
   "crates/exercism/*",
 ]
-exclude = [
-  "crates/rustlings/exercises/clippy",
-]
 resolver = "2"
 
 [workspace.metadata.release]
