@@ -1,0 +1,1 @@
+window.ALL_CRATES = ["basis","hello_world","rustlings"];
