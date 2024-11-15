@@ -8,7 +8,7 @@ edition = "2021"
 argh = "0.1.12"
 indicatif = "0.17.9"
 console = "0.15.8"
-notify = "4.0.18"
+notify = "7.0.0"
 toml = "0.8.19"
 regex = "1.11.1"
 serde = {version = "1.0.215", features = ["derive"]}
