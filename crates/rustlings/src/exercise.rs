@@ -81,7 +81,7 @@ pub struct CompiledExercise<'a> {
     _handle: FileHandle,
 }
 
-impl<'a> CompiledExercise<'a> {
+impl CompiledExercise<'_> {
     // Run the compiled exercise
     pub fn run(&self) -> Result<ExerciseOutput, ExerciseOutput> {
         self.exercise.run()
