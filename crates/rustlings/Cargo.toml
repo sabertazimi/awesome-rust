@@ -9,7 +9,7 @@ argh = "0.1.13"
 indicatif = "0.17.11"
 console = "0.15.11"
 notify = "4.0.18"
-toml = "0.8.20"
+toml = "0.8.21"
 regex = "1.11.1"
 serde = {version = "1.0.219", features = ["derive"]}
 
