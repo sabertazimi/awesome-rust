@@ -7,11 +7,11 @@ edition = "2021"
 [dependencies]
 argh = "0.1.13"
 indicatif = "0.18.0"
-console = "0.16.0"
+console = "0.16.1"
 notify = "4.0.18"
 toml = "0.9.5"
 regex = "1.11.2"
-serde = {version = "1.0.219", features = ["derive"]}
+serde = {version = "1.0.221", features = ["derive"]}
 
 [[bin]]
 name = "rustlings"
