@@ -4,7 +4,6 @@ authors = ["sabertazimi"]
 description = "Rust prototypes."
 src = "docs"
 language = "zh-CN"
-multilingual = false
 
 [output.html]
 git-repository-url = "https://github.com/sabertazimi/awesome-rust"
